@@ -13,7 +13,7 @@ with open(path_answer) as f:
 
 for i in range(0,len(answer)):
     if (answer[i] != result[i]):
-        print(f'result{result[i]} \ncorrect {answer[i]}')
+        print(f'result: {result[i]} \ncorrect {answer[i]}')
         assert(answer[i] == result[i])
 
 print("SUCCESS")

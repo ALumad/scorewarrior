@@ -1,5 +1,6 @@
 #include "ActionFactory.h"
 #include "ActionBuilder.h"
+#include "models/actions/Terminate.h"
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -18,8 +19,9 @@ std::shared_ptr<IAction> ActionsFactory::ActionFromLine(const std::string& line)
     if (elems[0] == WAIT) return WaitAction(elems);
     if (elems[0] == FINISH) return FinishAction(elems);
     if (elems[0] == EMPTY) return EmptyAction(elems);
-    throw 1;
-
+    std::stringstream sserr;
+    sserr << "Unknow command "  << elems[0] << " in line " << line << std::endl;
+    return std::make_shared<TerminateAction>(sserr.str());
 };
 
 std::shared_ptr<IAction> 
