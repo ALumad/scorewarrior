@@ -14,4 +14,5 @@ private:
     std::size_t m_id;
     Point m_point;
     Logger m_log;
+    bool m_is_backward = false;
 };

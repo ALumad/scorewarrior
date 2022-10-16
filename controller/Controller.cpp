@@ -33,7 +33,7 @@ int Controller::Battle(const std::size_t& id1, const std::size_t& id2){
     auto ptr2 = m_id2object[id2].get();
     int res =  dynamic_cast<Atacker*>(ptr1)->Atack() - dynamic_cast<Atacker*>(ptr2)->Atack();
     if (res < 0) {
-        DropObject(id1);
+        return res;
     } else if (res > 0) {
         DropObject(id2);
     }
@@ -54,9 +54,23 @@ std::size_t Controller::TickToPoint(const std::size_t& id,const Point& p){
     return static_cast<std::size_t>(res);
 }
 
-void Controller::MoveObject(const std::size_t& id, const Point& to){
-    auto p = m_id2point[id];
-    Singleton<Map>::instance()[p] = 0;
+void Controller::EndMoveObject(const std::size_t& id, const Point& to){
     Singleton<Map>::instance()[to] = id;
     m_id2point[id] = to;
+    m_id2point_in_move.erase(id);
+}
+
+Point Controller::GetObjectPosition(const std::size_t& id){
+    return m_id2point[id];
+}
+
+Point Controller::GetObjectPrevPosition(const std::size_t& id) {
+     return m_id2point_in_move[id];   
+}
+
+void Controller::StartMoveObject(const std::size_t& id) {
+    auto p = m_id2point[id];
+    Singleton<Map>::instance()[p] = 0;
+    m_id2point_in_move[id] = p;
+    m_id2point.erase(id);
 }
