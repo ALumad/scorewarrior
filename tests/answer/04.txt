@@ -1,0 +1,2 @@
+[0] MAP CREATED 1 1
+Point 10 20 not in map

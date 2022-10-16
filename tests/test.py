@@ -16,4 +16,4 @@ for i in range(0,len(answer)):
         print(f'result: {result[i]} \ncorrect {answer[i]}')
         assert(answer[i] == result[i])
 
-print("SUCCESS")
+print("SUCCESS",path_scenario)
