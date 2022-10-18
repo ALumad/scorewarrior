@@ -5,7 +5,7 @@
 class SpawnAction : public IAction {
 public:
     SpawnAction()=default;
-    virtual IAction::STATUS Do() override;
+    virtual IAction::Result Do() override;
     void SetId(const std::size_t& id);
     void SetPosition(const Point& p);
     void SetStrength(const std::size_t& strength);

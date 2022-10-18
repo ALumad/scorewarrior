@@ -25,7 +25,7 @@ TEST(ActionFactory, MARCH)
 {
     auto action = ActionsFactory::ActionFromLine("MARCH 1 11 21");
     action->Do();
-    ASSERT_TRUE(action->Do() == IAction::STATUS::INPROGRESS);
+    ASSERT_TRUE(action->Do().status == IAction::STATUS::INPROGRESS);
 }
 
 

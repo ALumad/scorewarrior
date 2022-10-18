@@ -20,15 +20,15 @@ void CreateMapAction::SetMapSize(const std::size_t& width, const std::size_t& he
     m_height = height;
 }
 
-IAction::STATUS CreateMapAction::Do(){
+IAction::Result CreateMapAction::Do(){
     if (m_status != IAction::STATUS::WAITING)
-        return m_status;
+        return {m_status, "", false};
     m_start_tick = Singleton<Tick>::instance().GetTicks();
     Singleton<Controller>::instance().CreateMap(m_width,m_height);
     m_status = IAction::STATUS::SUCCESS;
     m_end_tick = Singleton<Tick>::instance().GetTicks();
-    std::cout << Log() << std::endl;
-    return m_status;
+    std::string msg = Log();
+    return {m_status, msg};
 }
 
 std::string CreateMapAction::Log() {

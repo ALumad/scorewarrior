@@ -3,11 +3,10 @@
 #include "IAction.h"
 class EmptyAction : public IAction {
 public:
-    virtual STATUS Do() override {
-        if (m_status != STATUS::WAITING) return m_status;
-        std::cout << std::endl;
+    virtual IAction::Result Do() override {
+        if (m_status != STATUS::WAITING) return {m_status, "", false};
         m_status = STATUS::SUCCESS;
-        return m_status;
+        return {m_status, ""};
     }
 
 

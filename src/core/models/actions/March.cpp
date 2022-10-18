@@ -1,21 +1,20 @@
 #include "March.h"
 #include "models/Tick.h"
-#include <iostream>
 #include <sstream>
 #include <algorithm>
 #include "controller/Controller.h"
-IAction::STATUS MarchAction::Do() {
+IAction::Result MarchAction::Do() {
     if ( m_status == IAction::STATUS::WAITING) {
         return DoWaitingInprogress();
     } else if (m_status == IAction::STATUS::INPROGRESS 
             && Singleton<Tick>::instance().GetTicks() >= m_end_tick) {
         return DoInprogressSuccess();
     }
-    return m_status;
+    return {m_status,"", false};
 }
 
-IAction::STATUS MarchAction::DoWaitingInprogress() {
-    if ( m_status != IAction::STATUS::WAITING) return m_status;
+IAction::Result MarchAction::DoWaitingInprogress() {
+    if ( m_status != IAction::STATUS::WAITING) return {m_status,"", false};
     m_start_tick = (m_is_backward ? m_end_tick : Singleton<Tick>::instance().GetTicks());
     m_status = IAction::STATUS::INPROGRESS;
     auto tick = Singleton<Controller>::instance().TickToPoint(m_id,m_point);
@@ -24,13 +23,13 @@ IAction::STATUS MarchAction::DoWaitingInprogress() {
     m_log << "[" << m_start_tick << "] "
         << "MARCH STARTED " << m_id 
         << " TO " << m_point.x << " " << m_point.y;
-    std::cout << m_log.Log() << std::endl;
+    std::string msg = m_log.Log();
     m_log.Clear();
-    return m_status;   
+    return {m_status, msg};   
 }
-IAction::STATUS MarchAction::DoInprogressSuccess(){
+IAction::Result MarchAction::DoInprogressSuccess(){
     if (m_status != IAction::STATUS::INPROGRESS 
-      || Singleton<Tick>::instance().GetTicks() < m_end_tick) return m_status;
+      || Singleton<Tick>::instance().GetTicks() < m_end_tick) return {m_status, "", false};
     m_status = IAction::STATUS::SUCCESS;
     m_log << "[" << m_end_tick << "] "
            << "MARCH " <<  m_id 
@@ -56,9 +55,9 @@ IAction::STATUS MarchAction::DoInprogressSuccess(){
             m_log << " WINNERS IS " << m_id;
         }
     }
-    std::cout << m_log.Log() << std::endl;
+    std::string msg = m_log.Log();
     m_log.Clear();
-    return m_status;
+    return {m_status, msg};  
 }
 
 void MarchAction::SetId(const std::size_t& id) {

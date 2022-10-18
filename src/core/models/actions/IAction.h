@@ -17,7 +17,14 @@ public:
         FAILURE,
 
     };
-    virtual STATUS Do() = 0;
+
+    struct Result {
+        STATUS status;
+        std::string message;
+        bool is_printable = true;
+    };
+
+    virtual Result Do() = 0;
     virtual STATUS GetStatus()  {return m_status;}
     virtual ~IAction() = default;
 protected:

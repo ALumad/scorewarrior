@@ -7,7 +7,7 @@ class CreateMapAction : public IAction, public IChecker {
     public:
         CreateMapAction()=default;
         CreateMapAction(const std::size_t& width, const std::size_t& height);
-        virtual IAction::STATUS Do() override;
+        virtual Result Do() override;
         virtual bool Check() override;
 
         void SetMapSize(const std::size_t& width, const std::size_t& height);

@@ -5,15 +5,16 @@
 #include "controller/Controller.h"
 #include "models/objects/Warrior.h"
 #include "models/Map.h"
-IAction::STATUS SpawnAction::Do(){
+IAction::Result SpawnAction::Do(){
     if (m_status != IAction::STATUS::WAITING)
-        return m_status;
+        return {m_status, "", false};
     m_start_tick = Singleton<Tick>::instance().GetTicks();
     m_status = IAction::STATUS::SUCCESS;
     m_end_tick = Singleton<Tick>::instance().GetTicks();
     CreateAndStore();
-    std::cout << Log() << std::endl;
-    return m_status;
+    std::string msg = Log();
+    m_log.Clear();
+    return {m_status,msg};
 }
 
 void SpawnAction::SetId(const std::size_t& id){
