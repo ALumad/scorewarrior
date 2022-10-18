@@ -4,6 +4,7 @@ set(CMAKE_CXX_COMPILER "clang")
 set(CMAKE_CXX_STANDARD 17)
 set(PROJECT_NAME scorewarrior)
 
+
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
