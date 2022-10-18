@@ -1,8 +1,11 @@
-project(scorewarrior)
+project(scorewarrior CXX)
 cmake_minimum_required(VERSION 3.16)
 set(CMAKE_CXX_COMPILER "clang")
 set(CMAKE_CXX_STANDARD 17)
 set(PROJECT_NAME scorewarrior)
+
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
 
 include_directories(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR})
 add_executable(${PROJECT_NAME} 
