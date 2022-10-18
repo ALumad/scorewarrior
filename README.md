@@ -12,7 +12,12 @@
 #    
 **Build**   
 ```
-mkdir build && cd build   
+conan profile update settings.compiler.libcxx=libstdc++ default
+conan profile update settings.compiler=clang default
+conan profile update settings.compiler.version=10.0 default
+
+mkdir build && cd build  
+conan install .. 
 cmake ..   
 make
 ```
