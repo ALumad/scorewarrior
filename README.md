@@ -13,7 +13,7 @@
 **Build**   
 ```
 mkdir build && cd build  
-conan install ../src -s compiler=clang -s compiler.version=10 -s compiler.libcxx=libstdc++11 -s build_type=Release
+conan install .. -s compiler=clang -s compiler.version=10 -s compiler.libcxx=libstdc++11 -s build_type=Release
 cmake ..   
 make
 ```

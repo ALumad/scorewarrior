@@ -1,6 +1,6 @@
-#include "../src/models/actions/builders/ActionFactory.h"
-#include "../src/models/Map.h"
-#include "../src/models/Tick.h"
+#include "models/actions/builders/ActionFactory.h"
+#include "models/Map.h"
+#include "models/Tick.h"
 #include <gtest/gtest.h>
 
 TEST(ActionFactory, CREATE_MAP)
