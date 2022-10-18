@@ -9,3 +9,8 @@ void Map::initialize(const std::size_t& width, const std::size_t& height) {
 std::size_t& Map::operator[] (const Point& p){
     return m_field[p.y][p.x];
 }
+
+
+std::pair<std::size_t, std::size_t> Map::GetSize(){
+    return {m_field[0].size(), m_field.size()};
+}

@@ -35,6 +35,11 @@ std::string SpawnAction::Log() {
 
 void SpawnAction::CreateAndStore(){
     auto ptr = std::shared_ptr<Object>(new Warrior(m_id, m_strength));
-    Singleton<Controller>::instance().PutObject(ptr,m_position);
+    try {
+        Singleton<Controller>::instance().PutObject(ptr,m_position);
+    } catch(std::out_of_range& e){
+        std::cout << e.what() << std::endl;
+        exit(0);
+    }
     
 }

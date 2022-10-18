@@ -3,6 +3,7 @@
 #include "models/Map.h"
 #include "utils/Point.h"
 #include "models/objects/Atacker.h"
+#include <sstream>
 std::shared_ptr<Object> Controller::GetObject(const Point& p) {
     std::size_t id = Singleton<Map>::instance()[p];
     if (id == 0)
@@ -15,6 +16,12 @@ std::shared_ptr<Object> Controller::GetObject(const std::size_t& id) {
 }
 
 void Controller::PutObject(std::shared_ptr<Object>& obj,const Point& p) {
+    auto hw_size = Singleton<Map>::instance().GetSize();
+    if (p.x >= hw_size.first || p.y >= hw_size.second) {
+        std::stringstream ss;
+        ss << "Point " << p.x << " " << p.y << " not in map";
+        throw std::out_of_range(ss.str());
+    }
     m_id2object[obj->GetId()] = obj;
     m_id2point[obj->GetId()] = p;
     Singleton<Map>::instance()[p] = obj->GetId();
