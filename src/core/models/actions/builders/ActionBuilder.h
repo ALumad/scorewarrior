@@ -35,10 +35,16 @@ public:
 
 class SpawnActionBuilder : public BaseActionBuilder {
 public:
-    SpawnActionBuilder& CreateAction();
+    virtual SpawnActionBuilder& CreateAction();
     SpawnActionBuilder& SetSpawnId(const std::size_t& id);
     SpawnActionBuilder& SetSpawnPosition(const Point& p);
     SpawnActionBuilder& SetSpawnStrength(const std::size_t& strength);    
+};
+
+class SpawnRangeActionBuilder : public SpawnActionBuilder {
+public:
+    virtual SpawnRangeActionBuilder& CreateAction() override;
+    SpawnRangeActionBuilder& SetSpawnDistance(const std::size_t& distance);
 };
 
 

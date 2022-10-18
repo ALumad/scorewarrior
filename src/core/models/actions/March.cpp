@@ -37,8 +37,13 @@ IAction::Result MarchAction::DoInprogressSuccess(){
     Point prev_pos = Singleton<Controller>::instance().GetObjectPrevPosition(m_id);
     auto ptr = Singleton<Controller>::instance().GetObject(m_point);
     Singleton<Controller>::instance().EndMoveObject(m_id, m_point);
+    std::size_t id =0;
     if (ptr.get()) {
-        std::size_t id = ptr->GetId();
+        id = ptr->GetId();
+    } else {
+        id = Singleton<Controller>::instance().FirstCloseObject(m_id);
+    }
+    if (id) {
         int battle_res = Singleton<Controller>::instance().Battle(m_id, id);
         m_log << " BATTLE " << std::min(m_id,id) 
                 << " " << std::max(m_id,id);

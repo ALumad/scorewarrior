@@ -10,11 +10,24 @@ public:
     void SetPosition(const Point& p);
     void SetStrength(const std::size_t& strength);
 
-private:
-    void CreateAndStore();
-    std::string Log();
+protected:
+    virtual void CreateAndStore();
+    virtual std::string Log();
     std::size_t m_id = 0;
     Point m_position;
     std::size_t m_strength = 0;
     Logger m_log;        
+};
+
+
+class SpawnRangeAction : public SpawnAction {
+public:
+    SpawnRangeAction()=default;
+    void SetDistance(const std::size_t& distance);
+
+protected:
+    virtual void CreateAndStore() override;
+    virtual std::string Log() override;
+    std::size_t m_distance = 1;
+
 };

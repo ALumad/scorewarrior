@@ -3,6 +3,7 @@
 namespace ActionsStringName {
     const std::string CREATE_MAP = "CREATE_MAP";
     const std::string SPAWN = "SPAWN";
+    const std::string SPAWN_RANGE = "SPAWN_RANGE";
     const std::string MARCH = "MARCH";
     const std::string WAIT = "WAIT";
     const std::string FINISH = "FINISH";

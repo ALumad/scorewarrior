@@ -4,6 +4,7 @@
 #include <iostream>
 #include "controller/Controller.h"
 #include "models/objects/Warrior.h"
+#include "models/objects/Range.h"
 #include "models/Map.h"
 IAction::Result SpawnAction::Do(){
     if (m_status != IAction::STATUS::WAITING)
@@ -43,4 +44,25 @@ void SpawnAction::CreateAndStore(){
         exit(0);
     }
     
+}
+
+void SpawnRangeAction::CreateAndStore() {
+    auto ptr = std::shared_ptr<Object>(new Range(m_id, m_strength, m_distance));
+    try {
+        Singleton<Controller>::instance().PutObject(ptr,m_position);
+    } catch(std::out_of_range& e){
+        std::cout << e.what() << std::endl;
+        exit(0);
+    }    
+}
+
+void SpawnRangeAction::SetDistance(const std::size_t& distance) {
+    m_distance = distance;
+}
+
+std::string SpawnRangeAction::Log() {
+    m_log << "[" << m_end_tick << "] " << "ARCHER SPAWNED " 
+        << m_id << " ON " << m_position.x << " " << m_position.y;
+    std::string res = m_log.Log();    
+    return res;
 }

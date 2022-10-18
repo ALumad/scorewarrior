@@ -9,16 +9,17 @@ std::shared_ptr<IAction> ActionsFactory::ActionFromLine(const std::string& line)
     std::stringstream ss(line);
     std::string tmp;
     std::vector<std::string> elems;
-    //std::cout << line << "\n";
     while (std::getline(ss, tmp, ' ')) {
         elems.push_back(tmp);
     }
     if (elems[0] == CREATE_MAP) return CreateMapAction(elems);
     if (elems[0] == SPAWN) return SpawnAction(elems);
+    if (elems[0] == SPAWN_RANGE) return SpawnRangeAction(elems);
     if (elems[0] == MARCH) return MarchAction(elems);
     if (elems[0] == WAIT) return WaitAction(elems);
     if (elems[0] == FINISH) return FinishAction(elems);
     if (elems[0] == EMPTY) return EmptyAction(elems);
+
     std::stringstream sserr;
     sserr << "Unknow command "  << elems[0] << " in line " << line << std::endl;
     return std::make_shared<TerminateAction>(sserr.str());
@@ -50,6 +51,25 @@ std::shared_ptr<IAction>
         .SetSpawnStrength(strength);
     return builder.Build();
 }
+
+std::shared_ptr<IAction> 
+    ActionsFactory::SpawnRangeAction(const std::vector<std::string>& elems) 
+{
+    if (elems.size() != 6) throw 1;
+    std::size_t id = std::stoi(elems[1]);
+    std::size_t x = std::stoi(elems[2]);
+    std::size_t y = std::stoi(elems[3]);
+    std::size_t strength = std::stoi(elems[4]);
+    std::size_t distance = std::stoi(elems[5]);
+    SpawnRangeActionBuilder builder;
+    builder.CreateAction()
+        .SetSpawnDistance(distance)
+        .SetSpawnId(id)
+        .SetSpawnPosition({x,y})
+        .SetSpawnStrength(strength);
+    return builder.Build();
+}
+
 std::shared_ptr<IAction> 
     ActionsFactory::MarchAction(const std::vector<std::string>& elems) 
 {

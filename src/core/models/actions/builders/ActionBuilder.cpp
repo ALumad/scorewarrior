@@ -7,7 +7,6 @@
 #include "models/actions/Finish.h"
 #include "models/actions/March.h"
 #include "models/actions/Empty.h"
-
 using namespace ActionsStringName;
 
 BaseActionBuilder& BaseActionBuilder::CreateAction(const std::string& action) {
@@ -15,6 +14,7 @@ BaseActionBuilder& BaseActionBuilder::CreateAction(const std::string& action) {
     static std::map<std::string, std::function<IAction*()>> factory {
         {CREATE_MAP, [](){return new CreateMapAction();}},
         {SPAWN, [](){return new SpawnAction();}},
+        {SPAWN_RANGE, [](){return new SpawnRangeAction();}},
         {MARCH, []() {return new MarchAction();}},
         {WAIT, [](){return new WaitAction();}},
         {FINISH, [](){return new FinishAction();}},
@@ -71,11 +71,22 @@ SpawnActionBuilder& SpawnActionBuilder::SetSpawnPosition(const Point& p) {
     return *this;
 }
 
+
 SpawnActionBuilder& SpawnActionBuilder::SetSpawnStrength(const std::size_t& strength){
     dynamic_cast<SpawnAction*>(m_action.get())->SetStrength(strength);    
     return *this;
 }
 
+SpawnRangeActionBuilder& SpawnRangeActionBuilder::CreateAction(){
+    BaseActionBuilder::CreateAction(SPAWN_RANGE);
+    return *this;   
+}
+
+
+SpawnRangeActionBuilder& SpawnRangeActionBuilder::SetSpawnDistance(const std::size_t& distance){
+    dynamic_cast<SpawnRangeAction*>(m_action.get())->SetDistance(distance);
+    return *this;   
+}
 
 MarchActionBuilder& MarchActionBuilder::CreateAction(){
     BaseActionBuilder::CreateAction(MARCH);
@@ -91,4 +102,5 @@ MarchActionBuilder& MarchActionBuilder::SetMarchPosition(const Point& p) {
     dynamic_cast<MarchAction*>(m_action.get())->SetPosition(p);
     return *this;
 }
+
 

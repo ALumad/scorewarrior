@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <memory>
 #include "utils/Point.h"
+#include "set"
 class Controller : public Singleton<Controller> {
 public:
 
@@ -22,7 +23,10 @@ public:
     Point GetObjectPosition(const std::size_t& id);
     Point GetObjectPrevPosition(const std::size_t& id);
 
+    std::size_t FirstCloseObject(const std::size_t& id);
 private:
+    int DistanceBattle(const std::size_t& id1, const std::size_t& id2);
+
     std::unordered_map<std::size_t, std::shared_ptr<Object>> m_id2object;
     std::unordered_map<std::size_t, Point> m_id2point;
     std::unordered_map<std::size_t, Point> m_id2point_in_move;
