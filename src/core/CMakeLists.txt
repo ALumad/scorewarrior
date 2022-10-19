@@ -4,6 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_library(${CORE_NAME} 
     utils/ActionsReader.cpp
+    utils/ActionsRunner.cpp
     utils/InputChecker.cpp
     models/Map.cpp
     models/Tick.cpp
@@ -16,6 +17,7 @@ add_library(${CORE_NAME}
     models/actions/builders/ActionFactory.cpp
     controller/Controller.cpp
     controller/BattleController.cpp
+    
 )
 
 
