@@ -1,5 +1,5 @@
 #pragma once
-#include "utils/Signleton.h"
+#include "utils/Singleton.h"
 
 class Tick final: public Singleton<Tick> {
 public:

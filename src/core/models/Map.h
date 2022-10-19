@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <utility>
-#include "utils/Signleton.h"
+#include "utils/Singleton.h"
 #include "utils/Point.h"
 
 class Map final: public Singleton<Map> {

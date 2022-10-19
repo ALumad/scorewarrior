@@ -3,6 +3,8 @@
 #include <sstream>
 #include <algorithm>
 #include "controller/Controller.h"
+#include "controller/BattleController.h"
+
 IAction::Result MarchAction::Do() {
     if ( m_status == IAction::STATUS::WAITING) {
         return DoWaitingInprogress();
@@ -44,7 +46,7 @@ IAction::Result MarchAction::DoInprogressSuccess(){
         id = Singleton<Controller>::instance().FirstCloseObject(m_id);
     }
     if (id) {
-        int battle_res = Singleton<Controller>::instance().Battle(m_id, id);
+        int battle_res = Singleton<BattleController>::instance().Battle(m_id, id);
         m_log << " BATTLE " << std::min(m_id,id) 
                 << " " << std::max(m_id,id);
           

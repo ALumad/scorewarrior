@@ -15,6 +15,7 @@ add_library(${CORE_NAME}
     models/actions/builders/ActionBuilder.cpp
     models/actions/builders/ActionFactory.cpp
     controller/Controller.cpp
+    controller/BattleController.cpp
 )
 
 
